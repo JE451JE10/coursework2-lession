@@ -51,7 +51,14 @@ app.post('/collection/:collectionName', (req, res, next) => {
     })
 })
 
-
+// retrieve an object by mongodb ID
+const ObjectId = require('mongodb').ObjectId;
+app.get('/collection/:collectionName/:id', (req, res, next) => {
+    req.collection.findOne({ _id: new ObjectId(req.params.id) }, (e, result) => {
+        if (e) return next(e)
+        res.send(result)
+    })
+})
 
 
 const port = process.env.PORT || 3000
