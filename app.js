@@ -29,7 +29,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 })
 
 // dispaly a message for root path to show that API is working
-app.get('/database', function (req, res) {
+app.get('/', function (req, res) {
     res.send('welcome to mongodb server')
 })
 
