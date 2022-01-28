@@ -21,7 +21,8 @@ app.use(function (req, res, next) {
             next();
             return;
         } if (fileInfo.isFile()) res.sendFile(filePath);
-        else next(); });
+        else next(); 
+    });
 });
 
 // connect to MongoDB
