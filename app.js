@@ -8,13 +8,12 @@ app.use(express.json())
 
 app.use(function (req, res, next) {
     console.log("Request IP: " + req.url);
+    console.log("Request date: " + newDate());
 });
 
 var path = require("path");
 var staticPath = path.resolve(__dirname, "public");
 app.use(express.static(staticPath));
-
-
 // connect to MongoDB
 let db;
 const MongoClient = require('mongodb').MongoClient;
@@ -33,9 +32,13 @@ app.param('collectionName', (req, res, next, collectionName) => {
     return next()
 })
 // dispaly a message for root path to show that API is working
-app.get('/', function (req, res) {
-    res.send('welcome to mongodb server')
-})
+app.get('/', checkUserAuth, findApp, renderView, sendJSON);
+
+function checkUserAuth(req, res, next) {
+  if (req.session.user) return next();
+  res.send('welcome to mongodb server')
+return next(new NotAuthorizedError());
+}
 // retrieve all the objects from an collection
 app.get('/collection/:collectionName', (req, res) => {
     req.collection.find({}).toArray((e, results) => {
@@ -50,6 +53,7 @@ app.post('/collection/:collectionName', (req, res, next) => {
         res.send(results.ops)
     })
 })
+
 //update an object
 app.put('/collection/:collectionName', (req, res, next) => {
     req.collection.insert(req.body, (e, results) => {
@@ -57,6 +61,7 @@ app.put('/collection/:collectionName', (req, res, next) => {
         res.send(results.ops)
     })
 })
+
 // retrieve an object by mongodb ID
 const ObjectId = require('mongodb').ObjectId;
 app.get('/collection/:collectionName/:id', (req, res, next) => {
