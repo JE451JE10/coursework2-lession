@@ -6,6 +6,11 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 
+app.use(function (req, res, next) {
+    console.log("Request IP: " + req.url);
+    console.log("Request date: " + newDate());
+});
+
 var path = require("path");
 var staticPath = path.resolve(__dirname, "public");
 app.use(express.static(staticPath));
@@ -45,6 +50,14 @@ app.get('/collection/:collectionName', (req, res) => {
 
 // add an object
 app.post('/collection/:collectionName', (req, res, next) => {
+    req.collection.insert(req.body, (e, results) => {
+        if (e) return next(e)
+        res.send(results.ops)
+    })
+})
+
+//update an object
+app.put('/collection/:collectionName', (req, res, next) => {
     req.collection.insert(req.body, (e, results) => {
         if (e) return next(e)
         res.send(results.ops)
