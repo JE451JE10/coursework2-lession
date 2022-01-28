@@ -32,13 +32,9 @@ app.param('collectionName', (req, res, next, collectionName) => {
     return next()
 })
 // dispaly a message for root path to show that API is working
-app.get('/', checkUserAuth, findApp, renderView, sendJSON);
-
-function checkUserAuth(req, res, next) {
-  if (req.session.user) return next();
-  res.send('welcome to mongodb server')
-return next(new NotAuthorizedError());
-}
+app.get('/', function (req, res) {
+    res.send('welcome to mongodb server')
+})
 // retrieve all the objects from an collection
 app.get('/collection/:collectionName', (req, res) => {
     req.collection.find({}).toArray((e, results) => {
