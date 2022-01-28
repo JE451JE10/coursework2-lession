@@ -11,9 +11,10 @@ app.use(function (req, res, next) {
     console.log("Request date: " + newDate());
 });
 
-var path = require("path");
-var staticPath = path.resolve(__dirname, "public");
-app.use(express.static(staticPath));
+app.use(function (req, res, next) {// Uses path.join to find the path where the file should bevar file
+    Path = path.join(__dirname, "static", req.url);// Built-in fs.stat gets info about a file    
+    fs.stat(filePath, function (err, fileInfo) { if (err) { next(); return; } if (fileInfo.isFile()) res.sendFile(filePath); else next(); });
+});
 
 
 // connect to MongoDB
