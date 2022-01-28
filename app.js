@@ -11,14 +11,7 @@ app.use(function (req, res, next) {
     console.log("Request date: " + newDate());
 });
 
-app.use ((_req,res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-})
 
-var path = require("path");
-var staticPath = path.resolve(__dirname, "public");
-app.use(express.static(staticPath));
 // connect to MongoDB
 let db;
 const MongoClient = require('mongodb').MongoClient;
