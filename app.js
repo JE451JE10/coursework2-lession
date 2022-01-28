@@ -11,9 +11,9 @@ app.use(function (req, res, next) {
     console.log("Request date: " + newDate());
 });
 
-// var path = require("path");
-// var staticPath = path.resolve(__dirname, "public");
-// app.use(express.static(staticPath));
+var path = require("path");
+var staticPath = path.resolve(__dirname, "public");
+app.use(express.static(staticPath));
 
 
 // connect to MongoDB
