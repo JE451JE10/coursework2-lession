@@ -34,7 +34,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 })
 // dispaly a message for root path to show that API is working
 app.get('/', function (req, res) {
-   res.json({hello:”world”})
+   res.send('welcome to mongodb server')
 })
 // retrieve all the objects from an collection
 app.get('/collection/:collectionName', (req, res) => {
@@ -67,5 +67,9 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
         res.send(result)
     })
 })
-const port = process.env.PORT || 3000
-app.listen(port)
+
+const PORT = process.env.PORT || 3000; 
+app.listen(PORT, () => { 
+console.log(`Our app is running on port ${ PORT }`
+); 
+});
