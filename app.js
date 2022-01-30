@@ -8,7 +8,6 @@ app.use(express.json())
 
 app.use(function (req, res, next) {
     console.log("Request IP: " + req.url);
-    console.log("Request date: " + newDate());
 });
 
 var path = require("path");
@@ -70,6 +69,5 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
 
 const PORT = process.env.PORT || 3000; 
 app.listen(PORT, () => { 
-console.log(`Our app is running on port ${ PORT }`
-); 
+console.log(`Our app is running on port ${ PORT }`); 
 });
