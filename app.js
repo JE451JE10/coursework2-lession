@@ -59,7 +59,7 @@ app.post('/collection/:collectionName', (req, res, next) => {
 
 // update an object by ID
 app.put('/collection/:collectionName/:id', (req, res, next) => {
-    req.collection.update({ _id: new ObjectID(req.params.id) }, { $set: req.body }, { safe: true, multi: false }, (e, result) => {
+    req.collection.update({ _id: new ObjectId(req.params.id) }, { $set: req.body }, { safe: true, multi: false }, (e, result) => {
         if (e) return next(e)
         res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
     })
@@ -67,7 +67,7 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
 
 // delete an object by ID
 app.delete('/collection/:collectionName/:id', (req, res, next) => {
-    req.collection.deleteOne({ _id: ObjectID(req.params.id) }, (e, result) => {
+    req.collection.deleteOne({ _id: ObjectId(req.params.id) }, (e, result) => {
         if (e) return next(e)
         res.send((result.result.n === 1) ? { msg: 'success' } : { msg: 'error' })
     })
