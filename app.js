@@ -13,6 +13,7 @@ app.use(function (req, res, next) {
 var path = require("path");
 var staticPath = path.resolve(__dirname, "public");
 app.use(express.static(staticPath));
+
 // connect to MongoDB
 let db;
 const MongoClient = require('mongodb').MongoClient;
@@ -32,7 +33,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 })
 // dispaly a message for root path to show that API is working
 app.get('/', function (req, res) {
-    res.send('welcome to mongodb server')
+   res.send('welcome to mongodb server')
 })
 // retrieve all the objects from an collection
 app.get('/collection/:collectionName', (req, res) => {
