@@ -8,13 +8,7 @@ app.use(express.json())
 
 app.use(function (req, res, next) {
     console.log("Request IP: " + req.url);
-    console.log("Request date: " + newDate());
 });
-
-app.use ((_req,res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-})
 
 var path = require("path");
 var staticPath = path.resolve(__dirname, "public");
@@ -71,5 +65,7 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
         res.send(result)
     })
 })
-const port = process.env.PORT || 3000
-app.listen(port)
+
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
