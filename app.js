@@ -8,7 +8,7 @@ app.use(express.json())
 
 app.use(function (req, res, next) {
     console.log("Request IP: " + req.url);
-console.log("Request date: " + newDate());
+    console.log("Request date: " + newDate());
 });
 
 var path = require("path");
@@ -19,13 +19,13 @@ app.use(express.static(staticPath));
 let db;
 const MongoClient = require('mongodb').MongoClient;
 // MongoClient.connect('mongodb+srv://JE451:Deacon34@cluster-lesson.8cspb.mongodb.net/', (err, client) => {
-    if (err) {
-        console.log("db mondodb error ", err)
-        return
-    }
-    else {
-        db = client.db('app')
-    }
+if (err) {
+    console.log("db mondodb error ", err)
+    return
+}
+else {
+    db = client.db('app')
+}
 
 // get the collection name
 app.param('collectionName', (req, res, next, collectionName) => {
@@ -34,7 +34,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 })
 // dispaly a message for root path to show that API is working
 app.get('/', function (req, res) {
-   res.send('welcome to mongodb server')
+    res.send('welcome to mongodb server')
 })
 // retrieve all the objects from an collection
 app.get('/collection/:collectionName', (req, res) => {
@@ -68,6 +68,6 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
     })
 })
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 3000, function () {
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-  });
+});
