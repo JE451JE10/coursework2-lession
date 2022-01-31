@@ -4,7 +4,7 @@ const app = express()
 const cors = require('cors')
 // parse the request parameter
 app.use(cors())
-sapp.use(express.json())// connect to MongoDB
+app.use(express.json())// connect to MongoDB
 
 app.use(function (req, res, next) {
     console.log("Request IP: " + req.url); 
