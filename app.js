@@ -8,6 +8,7 @@ app.use(express.json())
 
 app.use(function (req, res, next) {
     console.log("Request IP: " + req.url);
+console.log("Request date: " + newDate());
 });
 
 var path = require("path");
