@@ -41,8 +41,9 @@ app.get('/collection/:collectionName', (req, res) => {
 })
 
 // retrieve an object by mongodb ID
-const ObjectID = require('mongodb').ObjectID; app.get('/collection/:collectionName/:id', (req, res, next) => {
-    req.collection.findOne({ _id: new ObjectID(req.params.id) }, (e, result) => {
+const ObjectId = require('mongodb').ObjectId; 
+app.get('/collection/:collectionName/:id', (req, res, next) => {
+    req.collection.findOne({ _id: new ObjectId(req.params.id) }, (e, result) => {
         if (e) return next(e)
         res.send(result)
     })
