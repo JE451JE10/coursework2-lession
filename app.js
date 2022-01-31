@@ -18,7 +18,7 @@ app.use(express.static(staticPath));
 // connect to MongoDB
 let db;
 const MongoClient = require('mongodb').MongoClient;
-MongoClient.connect('mongodb+srv://JE451:Deacon34@cluster-lesson.8cspb.mongodb.net/', (err, client) => {
+// MongoClient.connect('mongodb+srv://JE451:Deacon34@cluster-lesson.8cspb.mongodb.net/', (err, client) => {
     if (err) {
         console.log("db mondodb error ", err)
         return
@@ -26,7 +26,7 @@ MongoClient.connect('mongodb+srv://JE451:Deacon34@cluster-lesson.8cspb.mongodb.n
     else {
         db = client.db('app')
     }
-})
+
 // get the collection name
 app.param('collectionName', (req, res, next, collectionName) => {
     req.collection = db.collection(collectionName)
