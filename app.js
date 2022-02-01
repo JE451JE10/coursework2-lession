@@ -28,7 +28,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 
 // dispaly a message for root path to show that API is working
 app.get('/', function (req, res) {
-    res.send('welcome to mongodb server'+ ' ' + 'Select a collection, e.g., /collection/database')
+    res.send('welcome to mongodb server'+ ' and ' + 'Select a collection, e.g., /collection/database')
 })
 
 // retrieve all the objects from an collection
