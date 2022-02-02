@@ -11,9 +11,13 @@ app.use(function (req, res, next) {
     next(); // this should stop the browser from hanging
 });
 
-var path = require("path");
-var staticPath = path.resolve(__dirname, "public");
-app.use(express.static(staticPath));
+//is  no  'next'  argument  because  this  is  the  last  middleware. 
+app.use(function(req,  res)  { 
+//  Sets  the  status  code  to  404 
+res.status(404); 
+}); 
+//  Sends  the  error  "File  not  found!” 
+res.send("File  not  found!"); 
 
 const MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb+srv://JE451:Deacon34@cluster-lesson.8cspb.mongodb.net/', (err, client) => {
