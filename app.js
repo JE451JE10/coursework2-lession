@@ -12,7 +12,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res) {
-res.status(404).send("File not found!");
+console.log(res.status(404).send("File not found!"));
 });
 
 const MongoClient = require('mongodb').MongoClient;
