@@ -2,6 +2,8 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const fs = require("fs");
+const path = require("path");
 // parse the request parameter
 app.use(cors())
 app.use(express.json())// connect to MongoDB
@@ -11,8 +13,19 @@ app.use(function (req, res, next) {
     next(); // this should stop the browser from hanging
 });
 
-
-
+app.use(function (req, res, next) {
+    // Uses path.join to find the path where the file should be
+    var filePath = path.join(__dirname, "static", req.url);
+    // Built-in fs.stat gets info about a file    
+    fs.stat(filePath, function (err, fileInfo) {
+        if (err) {
+            next();
+            return;
+        }
+        if (fileInfo.isFile()) res.sendFile(filePath);
+        else next();
+    });
+});
 const MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb+srv://JE451:Deacon34@cluster-lesson.8cspb.mongodb.net/', (err, client) => {
     db = client.db('app')
@@ -26,7 +39,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
 
 // dispaly a message for root path to show that API is working
 app.get('/', function (req, res) {
-    res.send('welcome to mongodb server'+ ' and ' + 'Select a collection, e.g., /collection/database')
+    res.send('welcome to mongodb server' + ' and ' + 'Select a collection, e.g., /collection/database')
 })
 
 // retrieve all the objects from an collection
@@ -56,20 +69,20 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
 
 // update an object by ID
 app.put('/collection/:collectionName/:id', (req, res, next) => {
-    req.collection.update({ _id: new ObjectId(req.params.id) }, 
-    { $set: req.body }, { safe: true, multi: false }, (e, result) => {
-        if (e) return next(e)
-        res.send((result.result.n === 1) ? 
-        { msg: 'success' } : { msg: 'error' })
-    })
+    req.collection.update({ _id: new ObjectId(req.params.id) },
+        { $set: req.body }, { safe: true, multi: false }, (e, result) => {
+            if (e) return next(e)
+            res.send((result.result.n === 1) ?
+                { msg: 'success' } : { msg: 'error' })
+        })
 })
 
 // delete an object by ID
 app.delete('/collection/:collectionName/:id', (req, res, next) => {
     req.collection.deleteOne({ _id: ObjectId(req.params.id) }, (e, result) => {
         if (e) return next(e)
-        res.send((result.result.n === 1) ? 
-        { msg: 'success' } : { msg: 'error' })
+        res.send((result.result.n === 1) ?
+            { msg: 'success' } : { msg: 'error' })
     })
 })
 
