@@ -11,6 +11,10 @@ app.use(function (req, res, next) {
     next(); // this should stop the browser from hanging
 });
 
+app.use(function (req, res) {
+res.status(404).send("File not found!");
+});
+
 const MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb+srv://JE451:Deacon34@cluster-lesson.8cspb.mongodb.net/', (err, client) => {
     db = client.db('app')
