@@ -15,7 +15,7 @@ app.use(function (req, res, next) {
 
 app.use(function (req, res, next) {
     // Uses path.join to find the path where the file should be
-    var filePath = path.join(__dirname, "static", req.url);
+    var filePath = path.join(__dirname, "images", req.url);
     // Built-in fs.stat gets info about a file    
     fs.stat(filePath, function (err, fileInfo) {
         if (err) {
